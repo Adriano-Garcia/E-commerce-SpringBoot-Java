@@ -1,4 +1,4 @@
-package newdev.project01.model.entities;
+package newdev.project01.models.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
