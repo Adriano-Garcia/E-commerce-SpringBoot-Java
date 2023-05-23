@@ -1,4 +1,4 @@
-package newdev.project01.models.entities;
+package newdev.project01.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -34,7 +34,9 @@ public class User implements Serializable{
 	public User() {
 	}
 
-	public User(String name, String email, String phone, String password) {
+	public User(Long id, String name, String email, String phone, String password) {
+		super();
+		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.phone = phone;

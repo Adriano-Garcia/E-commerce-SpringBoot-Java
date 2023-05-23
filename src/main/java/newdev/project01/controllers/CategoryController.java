@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import newdev.project01.models.entities.Category;
+import newdev.project01.entities.Category;
 import newdev.project01.services.CategoryService;
 
 @RestController

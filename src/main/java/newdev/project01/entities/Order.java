@@ -1,4 +1,4 @@
-package newdev.project01.models.entities;
+package newdev.project01.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -12,7 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import newdev.project01.models.entities.enums.OrderStatus;
+import newdev.project01.enums.OrderStatus;
 
 @Entity
 @Table(name = "tb_order")
@@ -35,12 +35,21 @@ public class Order implements Serializable{
 	public Order() {
 	}
 
-
-	public Order(Instant date, OrderStatus orderStatus, User user) {
+	public Order(Long id, Instant date, OrderStatus orderStatus, User user) {
+		super();
+		this.id = id;
 		this.date = date;
 		setOrderStatus(orderStatus);
 		this.user = user;
 	}
+
+
+
+
+
+
+
+
 
 	public Long getId() {
 		return id;

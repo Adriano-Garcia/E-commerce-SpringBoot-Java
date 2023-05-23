@@ -1,4 +1,4 @@
-package newdev.project01.models.entities.enums;
+package newdev.project01.enums;
 
 public enum OrderStatus {
 	AGUARDANDO_PAGAMENTO(1),
