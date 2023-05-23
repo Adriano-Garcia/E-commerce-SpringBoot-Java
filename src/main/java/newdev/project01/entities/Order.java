@@ -35,21 +35,12 @@ public class Order implements Serializable{
 	public Order() {
 	}
 
-	public Order(Long id, Instant date, OrderStatus orderStatus, User user) {
+	public Order(Instant date, OrderStatus orderStatus, User user) {
 		super();
-		this.id = id;
 		this.date = date;
 		setOrderStatus(orderStatus);
 		this.user = user;
 	}
-
-
-
-
-
-
-
-
 
 	public Long getId() {
 		return id;
