@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,8 +22,10 @@ public class Order implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column
 	private Instant date;
 	
+	@Column
 	private Integer orderStatus;
 	
 	@ManyToOne
@@ -32,9 +35,10 @@ public class Order implements Serializable{
 	public Order() {
 	}
 
+
 	public Order(Instant date, OrderStatus orderStatus, User user) {
-		setOrderStatus(orderStatus);
 		this.date = date;
+		setOrderStatus(orderStatus);
 		this.user = user;
 	}
 
