@@ -9,26 +9,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import newdev.project01.models.entities.User;
-import newdev.project01.services.UserService;
+import newdev.project01.models.entities.Order;
+import newdev.project01.services.OrderService;
 
 @RestController
-@RequestMapping(value = "/users")
-public class UserController {
+@RequestMapping(value = "/orders")
+public class OrderController {
 	
 	@Autowired
-	private UserService userService;
+	private OrderService orderService;
 	
 	@GetMapping
-	public ResponseEntity<List<User>> findAll(){
-		List<User> list = userService.findAll();
+	public ResponseEntity<List<Order>> findAll(){
+		List<Order> list = orderService.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<User> findById(@PathVariable Long id){
-		User user = userService.findById(id);
-		return ResponseEntity.ok().body(user);
+	public ResponseEntity<Order> findById(@PathVariable Long id){
+		Order order = orderService.findById(id);
+		return ResponseEntity.ok().body(order);
 	}
 
 }

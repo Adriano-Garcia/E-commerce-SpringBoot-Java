@@ -1,12 +1,16 @@
 package newdev.project01.models.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,11 +26,14 @@ public class User implements Serializable{
 	private String phone;
 	private String password;
 	
+	@OneToMany
+	@JsonIgnore
+	private List<Order> listOrder;
+	
 	public User() {
 	}
 
-	public User(Long id, String name, String email, String phone, String password) {
-		this.id = id;
+	public User(String name, String email, String phone, String password) {
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
@@ -72,6 +79,10 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public List<Order> getListOrder() {
+		return listOrder;
+	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -93,4 +104,6 @@ public class User implements Serializable{
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	
 }
