@@ -8,8 +8,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import newdev.project01.models.entities.enums.OrderStatus;
 
 @Entity
 @Table(name = "tb_order")
@@ -21,13 +23,17 @@ public class Order implements Serializable{
 	private Long id;
 	private Instant date;
 	
+	private Integer orderStatus;
+	
 	@ManyToOne
+	@JoinColumn(name = "user_id")
 	private User user;
 	
 	public Order() {
 	}
 
-	public Order(Instant date, User user) {
+	public Order(Instant date, OrderStatus orderStatus, User user) {
+		setOrderStatus(orderStatus);
 		this.date = date;
 		this.user = user;
 	}
@@ -56,8 +62,14 @@ public class Order implements Serializable{
 		this.user = user;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public OrderStatus getOrderStatus() {
+		return OrderStatus.valueOf(orderStatus);
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) {
+		if(orderStatus != null) {
+			this.orderStatus = orderStatus.getCode();
+		}
 	}
 
 	@Override

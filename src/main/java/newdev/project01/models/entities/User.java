@@ -1,6 +1,7 @@
 package newdev.project01.models.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,9 +27,9 @@ public class User implements Serializable{
 	private String phone;
 	private String password;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "user")
 	@JsonIgnore
-	private List<Order> listOrder;
+	private List<Order> listOrder = new ArrayList<>();
 	
 	public User() {
 	}
