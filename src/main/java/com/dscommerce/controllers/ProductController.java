@@ -17,17 +17,17 @@ import com.dscommerce.services.ProductService;
 public class ProductController {
 	
 	@Autowired
-	private ProductService productService;
+	private ProductService service;
 	
 	@GetMapping
 	public ResponseEntity<List<Product>> findAll(){
-		List<Product> list = productService.findAll();
+		List<Product> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Product> findById(@PathVariable Long id){
-		Product product = productService.findById(id);
+		Product product = service.findById(id);
 		return ResponseEntity.ok().body(product);
 	}
 
