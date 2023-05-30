@@ -1,9 +1,10 @@
 package com.dscommerce.controllers;
 
-import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dscommerce.entities.User;
+import com.dscommerce.entities.dto.UserRequestDTO;
+import com.dscommerce.entities.dto.UserResponseDTO;
+import com.dscommerce.mapper.UserMapper;
 import com.dscommerce.services.UserService;
 
 @RestController
@@ -24,24 +27,30 @@ public class UserController {
 
 	@Autowired
 	private UserService service;
+	
+	@Autowired
+	UserMapper mapper;
 
 	@GetMapping
-	public ResponseEntity<List<User>> findAll() {
+	public ResponseEntity<List<UserResponseDTO>> findAll() {
 		List<User> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<UserResponseDTO> listDTO = list.stream().map(x -> mapper.toUserResponseDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<User> findById(@PathVariable Long id) {
+	public ResponseEntity<UserResponseDTO> findById(@PathVariable Long id) {
 		User user = service.findById(id);
-		return ResponseEntity.ok().body(user);
+		UserResponseDTO userDTO = mapper.toUserResponseDTO(user);
+		return ResponseEntity.ok().body(userDTO);
 	}
 
 	@PostMapping
-	public ResponseEntity<User> insert(@RequestBody User user) {
-		User obj = service.insert(user);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).body(obj);
+	public ResponseEntity<UserResponseDTO> insert(@RequestBody UserRequestDTO userRequest) {
+		User user = mapper.toUserInResquest(userRequest);
+		user = service.insert(user);
+		UserResponseDTO userResponse = mapper.toUserResponseDTO(user);
+		return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/{id}")
@@ -51,9 +60,11 @@ public class UserController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj) {
-		obj = service.update(id, obj);
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<UserResponseDTO> update(@PathVariable Long id, @RequestBody UserRequestDTO userRequest) {
+		User user = mapper.toUserInResquest(userRequest);
+		user = service.update(id, user);
+		UserResponseDTO userResponse = mapper.toUserResponseDTO(user);
+		return ResponseEntity.ok().body(userResponse);
 	}
 
 }

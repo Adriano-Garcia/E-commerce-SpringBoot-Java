@@ -65,10 +65,10 @@ public class TestConfig implements CommandLineRunner{
 		
 		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 		
-		User u1 = new User("Maria", "maria@gmail.com", "988888888", "123456");
-		User u2 = new User("Alex", "alex@gmail.com", "9765479999", "12385246");
-		User u3 = new User("Emma", "emma@gmail.com", "978235799", "12348965");
-		User u4 = new User("David", "david@gmail.com", "977777777", "12378965");
+		User u1 = new User(null,"Maria", "maria@gmail.com", "988888888", "123456");
+		User u2 = new User(null, "Alex", "alex@gmail.com", "9765479999", "12385246");
+		User u3 = new User(null, "Emma", "emma@gmail.com", "978235799", "12348965");
+		User u4 = new User(null, "David", "david@gmail.com", "977777777", "12378965");
 		
 		userRepository.saveAll(Arrays.asList(u1, u2, u3, u4));
 		
